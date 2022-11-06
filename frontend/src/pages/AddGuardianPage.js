@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
@@ -22,13 +23,16 @@ export default function AddGuardianPage() {
   const [guardian, setGuardian] = useState();
 
   useEffect(() => {
-    socialRecovery
-      .getAllGuardians()
-      .then((data) => {
-        console.log(data);
-        setGuardians(data);
-      })
-      .catch((err) => console.log(err));
+    async function getAllGuardians() {
+      socialRecovery
+        .getAllGuardians()
+        .then((data) => {
+          console.log(data);
+          setGuardians(data);
+        })
+        .catch((err) => console.log(err));
+    }
+    getAllGuardians();
   }, []);
 
   const handleRemoveItem = (index) => {

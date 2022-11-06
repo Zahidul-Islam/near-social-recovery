@@ -164,9 +164,15 @@ class SocialRecovery {
   }
 
   @call({})
-  transferOwnership({ newOwner }: { newOwner: string }) {
-    // require(near.currentAccountId() ===
-    //   near.predecessorAccountId(), `Account ${near.predecessorAccountId()} don't have permission to cancelRecovery`);
+  transferOwnership({
+    newOwner,
+    oldOwner,
+  }: {
+    newOwner: string;
+    oldOwner: string;
+  }) {
+    require(this.owner ===
+      oldOwner, `Account ${near.predecessorAccountId()} don't have permission to transferOwnership`);
     this.owner = newOwner;
     this.abc = newOwner;
     near.log("==> ", newOwner, this.owner, this.abc);
@@ -211,7 +217,7 @@ class SocialRecovery {
       guardians: this.isGuardian.toArray(),
       inRecovery: this.inRecovery,
       kek: this.kek,
-      accountId: near.predecessorAccountId(),
+      //accountId: near.predecessorAccountId(),
     };
   }
 }

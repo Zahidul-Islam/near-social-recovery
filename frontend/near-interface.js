@@ -8,10 +8,11 @@ export class SocialRecovery {
   }
 
   async getAllGuardians() {
+    const accountId = this.wallet.accountId;
     return await this.wallet.viewMethod({
       contractId: this.contractId,
       method: "getAllGuardiants",
-      args: { account: this.wallet.accountId },
+      args: { account: accountId },
     });
   }
 
